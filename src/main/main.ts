@@ -14,6 +14,18 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import { SerialPort } from 'serialport';
+
+async function listSerialPorts() {
+  await SerialPort.list().then((ports) => {
+    console.log('ports', ports);
+
+    if (ports.length === 0) {
+      console.log('No ports');
+    }
+  });
+}
+listSerialPorts();
 
 class AppUpdater {
   constructor() {
